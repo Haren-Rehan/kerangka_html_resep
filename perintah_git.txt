@@ -17,6 +17,8 @@ git add -u                             # Stage hanya file yang sudah tracked
 git commit -m "pesan"                  # Commit dengan pesan
 git commit -am "pesan"                 # Add + commit (untuk file tracked)
 git commit --amend -m "pesan baru"     # Ubah pesan commit terakhir
+git push origin main(/master)          # mengirim commit dari repositori lokal Anda ke repositori jarak jauh (remote seperti GitHub atau GitLab)
+git pull origin main(/master)          # mengambil pembaruan dari repositori jarak jauh dan langsung
 
 git diff                               # Lihat perubahan (belum di stage)
 git diff --staged                      # Lihat perubahan yang sudah di stage
