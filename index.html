@@ -2,283 +2,622 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resep Rumahan – Masakan Lezat dari Dapur Kita</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="style.css" rel="stylesheet" />
-        
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resep Rumahan – Masakan Lezat dari Dapur Kita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #FDF6EC;
+      --brown:   #2C1A0E;
+      --amber:   #E8891A;
+      --amber-l: #F5B050;
+      --sage:    #6B7C5C;
+      --white:   #FFFFFF;
+      --gray:    #888;
+      --shadow:  0 4px 24px rgba(44,26,14,.10);
+      --radius:  14px;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--brown);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(253,246,236,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(232,137,26,.20);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--brown);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--amber); }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--brown);
+      opacity: .7;
+      transition: opacity .2s;
+    }
+
+    .nav-links a:hover { opacity: 1; color: var(--amber); }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400&q=80');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(.45);
+      transition: transform 8s ease;
+    }
+
+    .hero:hover .hero-bg { transform: scale(1.04); }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--amber);
+      color: var(--white);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      color: rgba(255,255,255,.75);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+
+    /* ── Search ── */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      border-radius: 99px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    }
+
+    .search-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 13px 20px;
+      font-size: .95rem;
+      font-family: 'Inter', sans-serif;
+      background: transparent;
+      color: var(--brown);
+    }
+
+    .search-bar button {
+      background: var(--amber);
+      border: none;
+      padding: 13px 22px;
+      color: var(--white);
+      font-size: .95rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .search-bar button:hover { background: var(--amber-l); }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* ── Filter Tabs ── */
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .filter-btn {
+      border: 2px solid transparent;
+      background: var(--white);
+      color: var(--brown);
+      padding: 8px 20px;
+      border-radius: 99px;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      box-shadow: var(--shadow);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--amber);
+      color: var(--white);
+      border-color: var(--amber);
+    }
+
+    /* ── Category Section ── */
+    .category-section { margin-bottom: 60px; }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .category-flag {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .flag-indonesia { background: #FEE2E2; }
+    .flag-jepang    { background: #E0F2FE; }
+    .flag-italia    { background: #DCFCE7; }
+
+    .category-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .category-header .recipe-count {
+      margin-left: auto;
+      font-size: .82rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    /* ── Recipe Cards ── */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 24px;
+    }
+
+    .recipe-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(44,26,14,.16);
+    }
+
+    .recipe-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .recipe-card-body {
+      padding: 18px 20px 20px;
+    }
+
+    .recipe-card-tag {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 6px;
+    }
+
+    .recipe-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .recipe-card-desc {
+      font-size: .85rem;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .recipe-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .82rem;
+      color: var(--gray);
+    }
+
+    .recipe-card-footer .time {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-detail {
+      background: var(--amber);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .2s;
+    }
+
+    .btn-detail:hover { background: var(--amber-l); }
+
+    /* ── Hidden state for filter ── */
+    .category-section.hidden { display: none; }
+    .recipe-card.hidden       { display: none; }
+
+    /* ── No result ── */
+    #no-result {
+      display: none;
+      text-align: center;
+      padding: 60px 0;
+      color: var(--gray);
+    }
+
+    #no-result h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--brown);
+      color: rgba(255,255,255,.6);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: .85rem;
+    }
+
+    footer span { color: var(--amber); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      .hero { height: 400px; }
+      .recipe-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html" class="nav-logo">Resep<span>Rumahan</span></a>
-        <ul class="nav-links">
-            <li><a href="#indonesia">Indonesia</a></li>
-            <li><a href="#jepang">Jepang</a></li>
-            <li><a href="#italia">Italia</a></li>
-        </ul>
-    </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <span class="hero-tag">🍳 Dapur Digital</span>
-            <h1>Menu Resep<br />Masakan Rumahan</h1>
-            <p>Temukan resep lezat dari berbagai penjuru dunia — mudah dipraktikkan di rumah.</p>
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Cari resep... misalnya Rendang" />
-                <button onclick="doSearch()">🔍</button>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">Resep<span>Rumahan</span></a>
+    <ul class="nav-links">
+      <li><a href="#indonesia">Indonesia</a></li>
+      <li><a href="#jepang">Jepang</a></li>
+      <li><a href="#italia">Italia</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="hero-tag">🍳 Dapur Digital</span>
+      <h1>Menu Resep<br/>Masakan Rumahan</h1>
+      <p>Temukan resep lezat dari berbagai penjuru dunia — mudah dipraktikkan di rumah.</p>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Cari resep... misalnya Rendang" />
+        <button onclick="doSearch()">🔍</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+      <button class="filter-btn active" onclick="filterCategory('all', this)">🍽 Semua</button>
+      <button class="filter-btn" onclick="filterCategory('indonesia', this)">🇮🇩 Indonesia</button>
+      <button class="filter-btn" onclick="filterCategory('jepang', this)">🇯🇵 Jepang</button>
+      <button class="filter-btn" onclick="filterCategory('italia', this)">🇮🇹 Italia</button>
+    </div>
+
+    <div id="no-result">
+      <h3>Resep tidak ditemukan</h3>
+      <p>Coba kata kunci lain atau pilih kategori berbeda.</p>
+    </div>
+
+    <!-- ── Indonesia ── -->
+    <section class="category-section" id="indonesia" data-category="indonesia">
+      <div class="category-header">
+        <div class="category-flag flag-indonesia">🇮🇩</div>
+        <h2>Masakan Indonesia</h2>
+        <span class="recipe-count">3 resep</span>
+      </div>
+      <div class="recipe-grid">
+
+        <a href="masakan_indonesia/rendang.html" class="recipe-card" data-name="rendang">
+          <img src="https://images.unsplash.com/photo-1628294895950-9805252327bc?w=600&q=80" alt="Rendang" loading="lazy" />
+          <div class="recipe-card-body">
+            <div class="recipe-card-tag">Indonesia</div>
+            <div class="recipe-card-title">Resep Rendang Daging Sapi</div>
+            <div class="recipe-card-desc">Daging sapi empuk dimasak lambat dalam santan dan rempah khas Minang hingga kering beraroma.</div>
+            <div class="recipe-card-footer">
+              <span class="time">⏱ 3–4 jam</span>
+              <span class="btn-detail">Lihat Resep →</span>
             </div>
-        </div>
+          </div>
+        </a>
+
+        <a href="masakan_indonesia/soto_lamongan.html" class="recipe-card" data-name="soto lamongan">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Soto Lamongan" loading="lazy" />
+          <div class="recipe-card-body">
+            <div class="recipe-card-tag">Indonesia</div>
+            <div class="recipe-card-title">Resep Soto Lamongan</div>
+            <div class="recipe-card-desc">Kuah kuning segar dengan ayam suwir, telur, dan taburan koya gurih khas kota Lamongan.</div>
+            <div class="recipe-card-footer">
+              <span class="time">⏱ 1 jam</span>
+              <span class="btn-detail">Lihat Resep →</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="masakan_indonesia/nasi_goreng.html" class="recipe-card" data-name="nasi goreng">
+          <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" alt="Nasi Goreng" loading="lazy" />
+          <div class="recipe-card-body">
+            <div class="recipe-card-tag">Indonesia</div>
+            <div class="recipe-card-title">Resep Nasi Goreng Spesial</div>
+            <div class="recipe-card-desc">Nasi goreng gurih dengan telur mata sapi, kecap manis, dan pelengkap kerupuk renyah.</div>
+            <div class="recipe-card-footer">
+              <span class="time">⏱ 20 menit</span>
+              <span class="btn-detail">Lihat Resep →</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
     </section>
 
-    <!-- Main -->
-    <main>
+    <!-- ── Jepang ── -->
+    <section class="category-section" id="jepang" data-category="jepang">
+      <div class="category-header">
+        <div class="category-flag flag-jepang">🇯🇵</div>
+        <h2>Masakan Jepang</h2>
+        <span class="recipe-count">3 resep</span>
+      </div>
+      <div class="recipe-grid">
 
-        <!-- Filter Tabs -->
-        <div class="filter-tabs">
-            <button class="filter-btn active" onclick="filterCategory('all', this)">🍽 Semua</button>
-            <button class="filter-btn" onclick="filterCategory('indonesia', this)">🇮🇩 Indonesia</button>
-            <button class="filter-btn" onclick="filterCategory('jepang', this)">🇯🇵 Jepang</button>
-            <button class="filter-btn" onclick="filterCategory('italia', this)">🇮🇹 Italia</button>
-        </div>
-
-        <div id="no-result">
-            <h3>Resep tidak ditemukan</h3>
-            <p>Coba kata kunci lain atau pilih kategori berbeda.</p>
-        </div>
-
-        <!-- ── Indonesia ── -->
-        <section class="category-section" id="indonesia" data-category="indonesia">
-            <div class="category-header">
-                <div class="category-flag flag-indonesia">🇮🇩</div>
-                <h2>Masakan Indonesia</h2>
-                <span class="recipe-count">3 resep</span>
+        <a href="masakan_jepang/okonomiyaki.html" class="recipe-card" data-name="okonomiyaki">
+          <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&q=80" alt="Okonomiyaki" loading="lazy" />
+          <div class="recipe-card-body">
+            <div class="recipe-card-tag">Jepang</div>
+            <div class="recipe-card-title">Resep Okonomiyaki</div>
+            <div class="recipe-card-desc">Pancake gurih ala Jepang dengan kubis, daging, dan saus okonomiyaki khas Osaka.</div>
+            <div class="recipe-card-footer">
+              <span class="time">⏱ 30 menit</span>
+              <span class="btn-detail">Lihat Resep →</span>
             </div>
-            <div class="recipe-grid">
+          </div>
+        </a>
 
-                <a href="masakan_indonesia/rendang.html" class="recipe-card" data-name="rendang">
-                    <img src="https://images.unsplash.com/photo-1628294895950-9805252327bc?w=600&q=80" alt="Rendang"
-                        loading="lazy" />
-                    <div class="recipe-card-body">
-                        <div class="recipe-card-tag">Indonesia</div>
-                        <div class="recipe-card-title">Resep Rendang Daging Sapi</div>
-                        <div class="recipe-card-desc">Daging sapi empuk dimasak lambat dalam santan dan rempah khas
-                            Minang hingga kering beraroma.</div>
-                        <div class="recipe-card-footer">
-                            <span class="time">⏱ 3–4 jam</span>
-                            <span class="btn-detail">Lihat Resep →</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="masakan_indonesia/soto_lamongan.html" class="recipe-card" data-name="soto lamongan">
-                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80" alt="Soto Lamongan"
-                        loading="lazy" />
-                    <div class="recipe-card-body">
-                        <div class="recipe-card-tag">Indonesia</div>
-                        <div class="recipe-card-title">Resep Soto Lamongan</div>
-                        <div class="recipe-card-desc">Kuah kuning segar dengan ayam suwir, telur, dan taburan koya gurih
-                            khas kota Lamongan.</div>
-                        <div class="recipe-card-footer">
-                            <span class="time">⏱ 1 jam</span>
-                            <span class="btn-detail">Lihat Resep →</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="masakan_indonesia/nasi_goreng.html" class="recipe-card" data-name="nasi goreng">
-                    <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" alt="Nasi Goreng"
-                        loading="lazy" />
-                    <div class="recipe-card-body">
-                        <div class="recipe-card-tag">Indonesia</div>
-                        <div class="recipe-card-title">Resep Nasi Goreng Spesial</div>
-                        <div class="recipe-card-desc">Nasi goreng gurih dengan telur mata sapi, kecap manis, dan
-                            pelengkap kerupuk renyah.</div>
-                        <div class="recipe-card-footer">
-                            <span class="time">⏱ 20 menit</span>
-                            <span class="btn-detail">Lihat Resep →</span>
-                        </div>
-                    </div>
-                </a>
-
+        <a href="masakan_jepang/ramen.html" class="recipe-card" data-name="ramen">
+          <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80" alt="Ramen" loading="lazy" />
+          <div class="recipe-card-body">
+            <div class="recipe-card-tag">Jepang</div>
+            <div class="recipe-card-title">Resep Ramen Tonkotsu</div>
+            <div class="recipe-card-desc">Mie ramen dalam kuah kaldu tulang babi pekat, topping chashu, telur ajitsuke, dan nori.</div>
+            <div class="recipe-card-footer">
+              <span class="time">⏱ 4–6 jam</span>
+              <span class="btn-detail">Lihat Resep →</span>
             </div>
-        </section>
+          </div>
+        </a>
 
-        <!-- ── Jepang ── -->
-        <section class="category-section" id="jepang" data-category="jepang">
-            <div class="category-header">
-                <div class="category-flag flag-jepang">🇯🇵</div>
-                <h2>Masakan Jepang</h2>
-                <span class="recipe-count">3 resep</span>
+        <a href="masakan_jepang/tempura.html" class="recipe-card" data-name="tempura">
+          <img src="https://images.unsplash.com/photo-1515942400420-2b98fed1f515?w=600&q=80" alt="Tempura" loading="lazy" />
+          <div class="recipe-card-body">
+            <div class="recipe-card-tag">Jepang</div>
+            <div class="recipe-card-title">Resep Tempura Udang</div>
+            <div class="recipe-card-desc">Udang dan sayuran dibalut adonan tipis renyah, digoreng garing disajikan dengan saus tentsuyu.</div>
+            <div class="recipe-card-footer">
+              <span class="time">⏱ 40 menit</span>
+              <span class="btn-detail">Lihat Resep →</span>
             </div>
-            <div class="recipe-grid">
+          </div>
+        </a>
 
-                <a href="masakan_jepang/okonomiyaki.html" class="recipe-card" data-name="okonomiyaki">
-                    <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&q=80" alt="Okonomiyaki"
-                        loading="lazy" />
-                    <div class="recipe-card-body">
-                        <div class="recipe-card-tag">Jepang</div>
-                        <div class="recipe-card-title">Resep Okonomiyaki</div>
-                        <div class="recipe-card-desc">Pancake gurih ala Jepang dengan kubis, daging, dan saus
-                            okonomiyaki khas Osaka.</div>
-                        <div class="recipe-card-footer">
-                            <span class="time">⏱ 30 menit</span>
-                            <span class="btn-detail">Lihat Resep →</span>
-                        </div>
-                    </div>
-                </a>
+      </div>
+    </section>
 
-                <a href="masakan_jepang/ramen.html" class="recipe-card" data-name="ramen">
-                    <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80" alt="Ramen"
-                        loading="lazy" />
-                    <div class="recipe-card-body">
-                        <div class="recipe-card-tag">Jepang</div>
-                        <div class="recipe-card-title">Resep Ramen Tonkotsu</div>
-                        <div class="recipe-card-desc">Mie ramen dalam kuah kaldu tulang babi pekat, topping chashu,
-                            telur ajitsuke, dan nori.</div>
-                        <div class="recipe-card-footer">
-                            <span class="time">⏱ 4–6 jam</span>
-                            <span class="btn-detail">Lihat Resep →</span>
-                        </div>
-                    </div>
-                </a>
+    <!-- ── Italia ── -->
+    <section class="category-section" id="italia" data-category="italia">
+      <div class="category-header">
+        <div class="category-flag flag-italia">🇮🇹</div>
+        <h2>Masakan Italia</h2>
+        <span class="recipe-count">3 resep</span>
+      </div>
+      <div class="recipe-grid">
 
-                <a href="masakan_jepang/tempura.html" class="recipe-card" data-name="tempura">
-                    <img src="https://images.unsplash.com/photo-1515942400420-2b98fed1f515?w=600&q=80" alt="Tempura"
-                        loading="lazy" />
-                    <div class="recipe-card-body">
-                        <div class="recipe-card-tag">Jepang</div>
-                        <div class="recipe-card-title">Resep Tempura Udang</div>
-                        <div class="recipe-card-desc">Udang dan sayuran dibalut adonan tipis renyah, digoreng garing
-                            disajikan dengan saus tentsuyu.</div>
-                        <div class="recipe-card-footer">
-                            <span class="time">⏱ 40 menit</span>
-                            <span class="btn-detail">Lihat Resep →</span>
-                        </div>
-                    </div>
-                </a>
-
+        <a href="masakan_italia/pizza.html" class="recipe-card" data-name="pizza">
+          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" alt="Pizza" loading="lazy" />
+          <div class="recipe-card-body">
+            <div class="recipe-card-tag">Italia</div>
+            <div class="recipe-card-title">Resep Pizza Margherita</div>
+            <div class="recipe-card-desc">Pizza klasik Napoli dengan saus tomat segar, mozzarella lembut, dan daun basil aromatik.</div>
+            <div class="recipe-card-footer">
+              <span class="time">⏱ 1,5 jam</span>
+              <span class="btn-detail">Lihat Resep →</span>
             </div>
-        </section>
+          </div>
+        </a>
 
-        <!-- ── Italia ── -->
-        <section class="category-section" id="italia" data-category="italia">
-            <div class="category-header">
-                <div class="category-flag flag-italia">🇮🇹</div>
-                <h2>Masakan Italia</h2>
-                <span class="recipe-count">3 resep</span>
+        <a href="masakan_italia/pasta.html" class="recipe-card" data-name="pasta">
+          <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=600&q=80" alt="Pasta" loading="lazy" />
+          <div class="recipe-card-body">
+            <div class="recipe-card-tag">Italia</div>
+            <div class="recipe-card-title">Resep Pasta Carbonara</div>
+            <div class="recipe-card-desc">Pasta spaghetti dengan saus kuning telur, pancetta, keju Pecorino Romano, dan lada hitam.</div>
+            <div class="recipe-card-footer">
+              <span class="time">⏱ 25 menit</span>
+              <span class="btn-detail">Lihat Resep →</span>
             </div>
-            <div class="recipe-grid">
+          </div>
+        </a>
 
-                <a href="masakan_italia/pizza.html" class="recipe-card" data-name="pizza">
-                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" alt="Pizza"
-                        loading="lazy" />
-                    <div class="recipe-card-body">
-                        <div class="recipe-card-tag">Italia</div>
-                        <div class="recipe-card-title">Resep Pizza Margherita</div>
-                        <div class="recipe-card-desc">Pizza klasik Napoli dengan saus tomat segar, mozzarella lembut,
-                            dan daun basil aromatik.</div>
-                        <div class="recipe-card-footer">
-                            <span class="time">⏱ 1,5 jam</span>
-                            <span class="btn-detail">Lihat Resep →</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="masakan_italia/pasta.html" class="recipe-card" data-name="pasta">
-                    <img src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=600&q=80" alt="Pasta"
-                        loading="lazy" />
-                    <div class="recipe-card-body">
-                        <div class="recipe-card-tag">Italia</div>
-                        <div class="recipe-card-title">Resep Pasta Carbonara</div>
-                        <div class="recipe-card-desc">Pasta spaghetti dengan saus kuning telur, pancetta, keju Pecorino
-                            Romano, dan lada hitam.</div>
-                        <div class="recipe-card-footer">
-                            <span class="time">⏱ 25 menit</span>
-                            <span class="btn-detail">Lihat Resep →</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="masakan_italia/tiramisu.html" class="recipe-card" data-name="tiramisu">
-                    <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80" alt="Tiramisu"
-                        loading="lazy" />
-                    <div class="recipe-card-body">
-                        <div class="recipe-card-tag">Italia</div>
-                        <div class="recipe-card-title">Resep Tiramisu Klasik</div>
-                        <div class="recipe-card-desc">Dessert Italia lembut berlapis ladyfinger kopi, krim mascarpone,
-                            dan taburan cokelat bubuk.</div>
-                        <div class="recipe-card-footer">
-                            <span class="time">⏱ 4 jam (dinginkan)</span>
-                            <span class="btn-detail">Lihat Resep →</span>
-                        </div>
-                    </div>
-                </a>
-
+        <a href="masakan_italia/tiramisu.html" class="recipe-card" data-name="tiramisu">
+          <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80" alt="Tiramisu" loading="lazy" />
+          <div class="recipe-card-body">
+            <div class="recipe-card-tag">Italia</div>
+            <div class="recipe-card-title">Resep Tiramisu Klasik</div>
+            <div class="recipe-card-desc">Dessert Italia lembut berlapis ladyfinger kopi, krim mascarpone, dan taburan cokelat bubuk.</div>
+            <div class="recipe-card-footer">
+              <span class="time">⏱ 4 jam (dinginkan)</span>
+              <span class="btn-detail">Lihat Resep →</span>
             </div>
-        </section>
+          </div>
+        </a>
 
-    </main>
+      </div>
+    </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 <span>ResepRumahan</span> — Dibuat dengan cinta ❤️</p>
-    </footer>
+  </main>
 
-    <script>
-        // ── Search ──────────────────────────────────────────────
-        const searchInput = document.getElementById('searchInput');
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 <span>ResepRumahan</span> — Dibuat dengan ❤️ untuk para pecinta masak</p>
+  </footer>
 
-        searchInput.addEventListener('keyup', e => {
-            if (e.key === 'Enter') doSearch();
+  <script>
+    // ── Search ──────────────────────────────────────────────
+    const searchInput = document.getElementById('searchInput');
+
+    searchInput.addEventListener('keyup', e => {
+      if (e.key === 'Enter') doSearch();
+    });
+
+    function doSearch() {
+      const q = searchInput.value.trim().toLowerCase();
+      if (!q) { filterCategory('all'); return; }
+
+      let anyVisible = false;
+
+      document.querySelectorAll('.category-section').forEach(sec => {
+        let secVisible = false;
+        sec.querySelectorAll('.recipe-card').forEach(card => {
+          const name = card.dataset.name.toLowerCase();
+          const show = name.includes(q);
+          card.classList.toggle('hidden', !show);
+          if (show) { secVisible = true; anyVisible = true; }
         });
+        sec.classList.toggle('hidden', !secVisible);
+      });
 
-        function doSearch() {
-            const q = searchInput.value.trim().toLowerCase();
-            if (!q) { filterCategory('all'); return; }
+      document.getElementById('no-result').style.display = anyVisible ? 'none' : 'block';
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    }
 
-            let anyVisible = false;
+    // ── Category Filter ──────────────────────────────────────
+    function filterCategory(cat, btn) {
+      searchInput.value = '';
+      document.getElementById('no-result').style.display = 'none';
 
-            document.querySelectorAll('.category-section').forEach(sec => {
-                let secVisible = false;
-                sec.querySelectorAll('.recipe-card').forEach(card => {
-                    const name = card.dataset.name.toLowerCase();
-                    const show = name.includes(q);
-                    card.classList.toggle('hidden', !show);
-                    if (show) { secVisible = true; anyVisible = true; }
-                });
-                sec.classList.toggle('hidden', !secVisible);
-            });
-
-            document.getElementById('no-result').style.display = anyVisible ? 'none' : 'block';
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.category-section').forEach(sec => {
+        if (cat === 'all' || sec.dataset.category === cat) {
+          sec.classList.remove('hidden');
+          sec.querySelectorAll('.recipe-card').forEach(c => c.classList.remove('hidden'));
+        } else {
+          sec.classList.add('hidden');
         }
+      });
 
-        // ── Category Filter ──────────────────────────────────────
-        function filterCategory(cat, btn) {
-            searchInput.value = '';
-            document.getElementById('no-result').style.display = 'none';
-
-            document.querySelectorAll('.category-section').forEach(sec => {
-                if (cat === 'all' || sec.dataset.category === cat) {
-                    sec.classList.remove('hidden');
-                    sec.querySelectorAll('.recipe-card').forEach(c => c.classList.remove('hidden'));
-                } else {
-                    sec.classList.add('hidden');
-                }
-            });
-
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-        }
-    </script>
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+  </script>
 
 </body>
-
 </html>

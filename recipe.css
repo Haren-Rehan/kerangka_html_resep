@@ -1,0 +1,222 @@
+/* ════════════════════════════════════════
+   recipe.css — Shared stylesheet ResepRumahan
+   Dipakai oleh semua halaman resep (9 file)
+   ════════════════════════════════════════ */
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;500;600&display=swap');
+
+/* ── Reset & Variables ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:    #FDF6EC;
+  --brown:    #2C1A0E;
+  --amber:    #E8891A;
+  --amber-l:  #F5B050;
+  --sage:     #6B7C5C;
+  --white:    #FFFFFF;
+  --gray:     #777;
+  --light:    #F5EFE6;
+  --border:   rgba(232,137,26,.20);
+  --shadow:   0 4px 24px rgba(44,26,14,.10);
+  --radius:   14px;
+}
+
+body {
+  background: var(--cream);
+  color: var(--brown);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ── Navigation Bar ── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(253,246,236,.93);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brown);
+  text-decoration: none;
+}
+
+.topbar-logo span { color: var(--amber); }
+
+.topbar-back {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--amber);
+  color: var(--white);
+  text-decoration: none;
+  padding: 7px 18px;
+  border-radius: 99px;
+  font-size: .85rem;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.topbar-back:hover { background: var(--amber-l); }
+
+/* ── Page Wrapper ── */
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ── Hero Image ── */
+.recipe-hero {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  display: block;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow);
+}
+
+/* ── Category Tag ── */
+.recipe-category {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 10px;
+}
+
+/* ── Title ── */
+.recipe-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+/* ── Meta row (waktu, porsi) ── */
+.recipe-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.recipe-meta .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .85rem;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+/* ── Section Headings ── */
+.recipe-section {
+  margin-bottom: 36px;
+}
+
+.recipe-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brown);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--amber);
+  display: inline-block;
+}
+
+/* ── Ingredient / Step Lists ── */
+.recipe-section ol {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  counter-reset: item;
+}
+
+.recipe-section ol li {
+  counter-increment: item;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--white);
+  border-radius: 10px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(44,26,14,.06);
+  font-size: .95rem;
+  line-height: 1.6;
+}
+
+.recipe-section ol li::before {
+  content: counter(item);
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  background: var(--amber);
+  color: var(--white);
+  border-radius: 50%;
+  font-size: .75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+/* Bold text inside steps */
+.recipe-section ol li strong {
+  color: var(--amber);
+}
+
+/* ── Tips Box ── */
+.tips-box {
+  background: #FFF8EE;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+  margin-top: 12px;
+  font-size: .9rem;
+  color: var(--brown);
+}
+
+.tips-box strong { display: block; margin-bottom: 4px; color: var(--amber); }
+
+/* ── Footer ── */
+.site-footer {
+  background: var(--brown);
+  color: rgba(255,255,255,.55);
+  text-align: center;
+  padding: 24px;
+  font-size: .82rem;
+}
+
+.site-footer span { color: var(--amber-l); }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .topbar { padding: 0 16px; }
+  .recipe-hero { height: 220px; }
+  .page { padding: 32px 16px 60px; }
+}
